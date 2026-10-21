@@ -1,0 +1,2080 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>처음 만나는 페르시아어 · 문장조립</title>
+    
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/sahel-font@v3.4.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #125fa6;
+            --primary-hover: #0b4e8c;
+            --accent: #b84821;
+            --accent-hover: #9a3c1a;
+            --success: #167657;
+            --success-bg: #eefaf5;
+            --bg: #edf7ff;
+            --card: #ffffff;
+            --border: #cee4f7;
+            --text-main: #24435e;
+            --text-muted: #5c7489;
+            --persian-font: 'Sahel', 'Noto Sans Arabic', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 32px 20px;
+            background: linear-gradient(150deg, #d3e7f8 0%, #e6f0fa 55%, #cbdff3 100%);
+            color: var(--text-main);
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.65;
+        }
+
+        button {
+            font: inherit;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:focus-visible {
+            outline: 3px solid #1674c4;
+            outline-offset: 4px;
+        }
+
+        button:disabled {
+            cursor: default;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            min-height: 700px;
+            margin: 0 auto;
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid #cde6fb;
+            border-radius: 24px;
+            box-shadow: 0 16px 50px rgba(32, 108, 171, 0.1);
+        }
+
+        header {
+            padding: 34px 24px;
+            background: linear-gradient(120deg, #207cc4, #125fa6);
+            color: white;
+            text-align: center;
+        }
+
+        header h2 {
+            font-size: 2rem;
+            user-select: none;
+        }
+
+        header p {
+            margin-top: 8px;
+            color: #f0f8ff;
+        }
+
+        .top-nav {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 16px 28px;
+            background: #f2f9ff;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .btn-home,
+        .btn-mute,
+        .btn-help {
+            padding: 10px 16px;
+            background: white;
+            color: var(--primary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-home:hover,
+        .btn-mute:hover,
+        .btn-help:hover {
+            background: #e7f4ff;
+        }
+
+        .btn-mute {
+            min-width: 46px;
+            min-height: 46px;
+        }
+
+        .screen {
+            display: none;
+            padding: 28px 36px 36px;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .welcome-note {
+            padding: 20px;
+            margin-bottom: 22px;
+            background: #edf7ff;
+            border-radius: 16px;
+        }
+
+        .welcome-note strong {
+            color: #175d98;
+            font-size: 1.2rem;
+        }
+
+        .welcome-note p,
+        .home-footer {
+            margin-top: 6px;
+            color: var(--text-muted);
+        }
+
+        .home-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .mode-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 26px;
+            background: #eaf3fc;
+            border: 2px solid #d5eafb;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .main-course {
+            background: #dcecfb;
+            border-color: #9fcef3;
+        }
+
+        .course-tag,
+        .mode-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #e0f0ff;
+            color: #135d98;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .mode-icon {
+            margin: 22px 0 12px;
+            color: #278adb;
+            font-size: 2.6rem;
+        }
+
+        .mode-card h3 {
+            margin-bottom: 10px;
+            color: #145f9d;
+            font-size: 1.55rem;
+        }
+
+        .mode-card p {
+            margin-bottom: 24px;
+            color: var(--text-muted);
+            word-break: keep-all;
+        }
+
+        .btn-start {
+            width: 100%;
+            padding: 15px 18px;
+            margin-top: auto;
+            background: var(--primary);
+            color: white;
+            border: 0;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-start:hover {
+            background: var(--primary-hover);
+        }
+
+        .home-footer {
+            margin-top: 22px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .intro-title {
+            margin: 14px 0 22px;
+            color: #175d98;
+            font-size: 1.65rem;
+        }
+
+        .intro-card {
+            padding: 20px;
+            margin-bottom: 16px;
+            background: #f4faff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .intro-card h3 {
+            margin-bottom: 6px;
+            color: #195f99;
+            font-size: 1.08rem;
+        }
+
+        .intro-card p {
+            color: var(--text-muted);
+            word-break: keep-all;
+        }
+
+        .reading-example {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin: 20px 0 12px;
+        }
+
+        .reading-example div {
+            min-width: 110px;
+            padding: 12px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .reading-example b {
+            display: block;
+            font-family: var(--persian-font);
+            font-size: 2rem;
+            line-height: 1.8;
+        }
+
+        .reading-example small {
+            display: block;
+            color: #34627f;
+            font-size: 0.85rem;
+        }
+
+        .example-translation {
+            text-align: center;
+        }
+
+        .intro-start {
+            margin-top: 8px;
+        }
+
+        .game-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .elapsed-time {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+
+        .progress-wrapper {
+            height: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background: #e3f1fc;
+            border-radius: 10px;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: #42a5f5;
+            border-radius: inherit;
+            transition: width 0.3s ease;
+        }
+
+        .learning-tip {
+            padding: 14px 18px;
+            margin-bottom: 16px;
+            background: #f4faff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: #3b607e;
+            font-size: 0.95rem;
+        }
+
+        .question-box {
+            padding: 20px 24px;
+            margin-bottom: 14px;
+            background: #d8eafb;
+            border-left: 5px solid #49a7ee;
+            border-radius: 14px;
+        }
+
+        .question-label {
+            margin-bottom: 12px;
+            color: #3a6485;
+            font-size: 0.95rem;
+        }
+
+        .ko-text {
+            color: #185783;
+            font-size: 1.7rem;
+            font-weight: 700;
+            direction: ltr;
+            overflow-wrap: anywhere;
+        }
+
+        .fa-text {
+            color: #185783;
+            font-family: var(--persian-font);
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.9;
+            direction: rtl;
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        .question-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .hint-panel {
+            padding: 16px;
+            margin-bottom: 16px;
+            background: #fff9e9;
+            border: 1px solid #f0dcab;
+            border-radius: 12px;
+        }
+
+        .hint-sentence {
+            margin: 6px 0;
+        }
+
+        .hint-reading {
+            color: #5f573d;
+            font-size: 0.95rem;
+        }
+
+        .vocabulary-panel {
+            padding: 14px;
+            margin-bottom: 16px;
+            background: #f7fbff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .vocabulary-label {
+            margin-bottom: 12px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .vocabulary-words {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .answer-guide {
+            margin-bottom: 8px;
+            color: #3d6685;
+            font-size: 0.85rem;
+        }
+
+        .answer-zone {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 12px;
+            min-height: 136px;
+            padding: 18px;
+            margin-bottom: 20px;
+            background: #eaf3fc;
+            border: 2px dashed #b6d9f4;
+            border-radius: 16px;
+        }
+
+        .answer-zone.active {
+            background: #edf7ff;
+            border-color: #78b8e9;
+        }
+
+        .answer-placeholder {
+            align-self: center;
+            color: #577a95;
+            font-size: 0.95rem;
+            direction: ltr;
+        }
+
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            min-height: 112px;
+            margin-bottom: 24px;
+        }
+
+        .fa-zone {
+            direction: rtl;
+        }
+
+        .ko-zone {
+            direction: ltr;
+        }
+
+        .word-tile {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 86px;
+            padding: 9px 16px 11px;
+            background: white;
+            color: #214c70;
+            border: 2px solid var(--border);
+            border-radius: 13px;
+            box-shadow: 0 3px 0 var(--border);
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+            user-select: none;
+        }
+
+        .tile-word {
+            font-size: 1.12rem;
+            font-weight: 700;
+            line-height: 1.65;
+        }
+
+        .fa-zone .tile-word {
+            font-family: var(--persian-font);
+            font-size: 1.9rem;
+            line-height: 1.75;
+        }
+
+        .tile-reading,
+        .tile-meaning {
+            display: block;
+            direction: ltr;
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .tile-reading {
+            color: #315f82;
+            font-size: 0.88rem;
+        }
+
+        .tile-meaning {
+            color: #536d81;
+            font-size: 0.76rem;
+        }
+
+        .word-tile.tutorial-target {
+            background: #e2f2ff;
+            border-color: #258fe2;
+            box-shadow: 0 3px 0 #258fe2;
+        }
+
+        .word-tile.disabled {
+            background: #f1f6fa;
+            border-color: #e1ebf3;
+            box-shadow: none;
+            opacity: 0.4;
+        }
+
+        @media (hover: hover) {
+            .word-tile:hover:not(:disabled) {
+                background: #e8f5ff;
+                border-color: #6bb5ee;
+            }
+        }
+
+        .control-panel {
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+        }
+
+        .btn-submit,
+        .btn-share {
+            width: 100%;
+            padding: 16px;
+            border: 0;
+            border-radius: 12px;
+            font-size: 1.08rem;
+            font-weight: 700;
+        }
+
+        .btn-submit {
+            background: #e8f0f6;
+            color: #6b8091;
+        }
+
+        .btn-submit.ready {
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+        }
+
+        .btn-submit.ready:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-submit.next-success {
+            background: var(--success);
+            color: white;
+            cursor: pointer;
+        }
+
+        .btn-submit.next-error {
+            background: #a64e24;
+            color: white;
+            cursor: pointer;
+        }
+
+        .feedback-box {
+            display: none;
+            padding: 20px;
+            margin-top: 16px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .feedback-box.success {
+            background: var(--success-bg);
+            border-color: #a8dcc9;
+            color: #1c624c;
+        }
+
+        .feedback-box.error {
+            background: #fff7ed;
+            border-color: #efd4b5;
+            color: #8a421e;
+        }
+
+        .feedback-title {
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .feedback-sentence {
+            color: #245377;
+            font-family: var(--persian-font);
+            font-size: 1.9rem;
+            line-height: 1.9;
+            text-align: center;
+        }
+
+        .feedback-reading,
+        .feedback-meaning {
+            margin-top: 5px;
+            font-size: 1rem;
+        }
+
+        .dashboard-box {
+            padding: 30px 24px;
+            margin-bottom: 24px;
+            border: 2px solid #9acdf4;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .dash-title {
+            padding-bottom: 16px;
+            margin-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+            color: #195f98;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .dash-rank {
+            margin: 12px 0;
+            color: #2282ca;
+            font-size: 3.5rem;
+            font-weight: 700;
+        }
+
+        .dash-msg {
+            color: #466680;
+        }
+
+        .dash-stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 22px;
+            margin-top: 24px;
+            background: #f1f9ff;
+            border-radius: 14px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .stat-value {
+            color: #165d98;
+            font-size: 1.45rem;
+            font-weight: 700;
+        }
+
+        .mistake-area {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            margin-bottom: 24px;
+            background: #f4faff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .mistake-item {
+            padding: 16px 0;
+            border-bottom: 1px dashed #bfd9ec;
+            text-align: center;
+        }
+
+        .mistake-item:last-child {
+            border-bottom: 0;
+        }
+
+        .next-course {
+            margin: 4px 0 12px;
+        }
+
+        .btn-share {
+            background: #e2f2ff;
+            color: #175e98;
+            cursor: pointer;
+        }
+
+        .btn-share:hover {
+            background: #d0eaff;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+            background: rgba(14, 42, 68, 0.7);
+        }
+
+        .test-board-box {
+            width: 90%;
+            max-width: 900px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 30px;
+            background: white;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .test-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .test-tile {
+            padding: 8px 12px;
+            background: #f0f8ff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: var(--persian-font);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                min-height: 0;
+                border-radius: 18px;
+            }
+
+            header {
+                padding: 28px 18px;
+            }
+
+            header h2 {
+                font-size: 1.6rem;
+            }
+
+            .screen {
+                padding: 22px 18px;
+            }
+
+            .top-nav {
+                padding: 12px 18px;
+            }
+
+            .home-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mode-card {
+                padding: 22px;
+            }
+
+            .ko-text {
+                font-size: 1.4rem;
+            }
+
+            .fa-text {
+                font-size: 2.1rem;
+            }
+
+            .question-box {
+                padding: 16px;
+            }
+
+            .answer-zone,
+            .word-bank {
+                gap: 8px;
+            }
+
+            .answer-zone {
+                padding: 12px;
+            }
+
+            .word-tile {
+                min-width: 72px;
+                max-width: 100%;
+                padding: 8px 10px;
+            }
+
+            .fa-zone .tile-word {
+                font-size: 1.65rem;
+            }
+
+            .reading-example {
+                gap: 8px;
+            }
+
+            .reading-example div {
+                min-width: 70px;
+                padding: 10px 6px;
+            }
+
+            .reading-example small {
+                font-size: 0.72rem;
+            }
+
+            .dash-stats {
+                gap: 18px;
+                padding: 18px 10px;
+            }
+
+            .dashboard-box {
+                padding: 22px 14px;
+            }
+
+            .intro-card {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="container" id="main-container">
+    <div class="top-nav" id="top-nav">
+        <button class="btn-home" onclick="goHome()"><i class="fas fa-arrow-left"></i> 뒤로가기</button>
+        <button class="btn-mute" id="muteBtn" onclick="toggleMute()" title="소리 켜기" aria-label="소리 켜기"><i class="fas fa-volume-mute"></i></button>
+    </div>
+
+    <header id="main-header">
+        <h2 id="main-title" onclick="handleTitleClick()">처음 만나는 페르시아어</h2>
+        <p>처음 만나는 페르시아어, 짧은 문장부터 하나씩</p>
+    </header>
+
+    <div id="screen-home" class="screen active">
+        <div class="welcome-note">
+            <strong>글자를 몰라도 시작할 수 있어요.</strong>
+            <p>한글 발음과 뜻을 보며 짧은 문장을 만들어 보세요. 제한 시간은 없습니다.</p>
+        </div>
+        <div class="home-grid">
+            <div class="mode-card">
+                <span class="course-tag">처음이라면 여기부터 · 4문항</span>
+                <i class="fas fa-seedling mode-icon" aria-hidden="true"></i>
+                <h3>튜토리얼</h3>
+                <p>오른쪽부터 읽는 법과 단어 카드 사용법을 배워요. 다음에 고를 단어도 표시해 드립니다.</p>
+                <button class="btn-start" onclick="openCourse('tutorial')">튜토리얼 시작</button>
+            </div>
+            <div class="mode-card main-course">
+                <span class="course-tag">완전 입문 · 12문항</span>
+                <i class="fas fa-puzzle-piece mode-icon" aria-hidden="true"></i>
+                <h3>본편</h3>
+                <p>«이것은 사과입니다»부터 차근차근. 3~4개 단어로 된 문장을 발음·뜻과 함께 연습해요.</p>
+                <button class="btn-start" onclick="openCourse('main')">본편 시작</button>
+            </div>
+        </div>
+        <p class="home-footer">외우기보다 먼저 눌러 보세요. 틀린 문장은 해설과 함께 다시 만들어 볼 수 있습니다.</p>
+    </div>
+
+    <div id="screen-intro" class="screen">
+        <span class="course-tag" id="intro-course-tag">시작 전 안내</span>
+        <h2 class="intro-title" id="intro-title">튜토리얼 시작 전</h2>
+        <div class="intro-card">
+            <h3>1. 페르시아어는 오른쪽 → 왼쪽으로 읽어요.</h3>
+            <p>아래 문장은 오른쪽의 «이것»부터 읽습니다. 한글 발음은 읽기 도움용 근사 표기입니다.</p>
+            <div class="reading-example" dir="rtl" lang="fa">
+                <div><b>این</b><small lang="ko" dir="ltr">① 인 · 이것</small></div>
+                <div><b>سیب</b><small lang="ko" dir="ltr">② 시브 · 사과</small></div>
+                <div><b>است</b><small lang="ko" dir="ltr">③ 아스트 · ~이다</small></div>
+            </div>
+            <p class="example-translation">뜻: 이것은 사과입니다.</p>
+        </div>
+        <div class="intro-card">
+            <h3>2. 단어 카드를 차례로 누르세요.</h3>
+            <p>페르시아어 답은 첫 카드가 오른쪽에, 한국어 답은 첫 카드가 왼쪽에 놓입니다.
+            답칸의 카드를 다시 누르면 취소할 수 있어요.</p>
+        </div>
+        <div class="intro-card">
+            <h3>3. 발음·뜻을 보며 천천히 풀어도 돼요.</h3>
+            <p>시간 제한과 오답 페널티는 없습니다. «문장 듣기»를 누르면 소리가 켜집니다.
+            단어 카드를 누를 때의 발음은 상단 소리 버튼으로 켜고 끌 수 있어요.</p>
+        </div>
+        <button class="btn-start intro-start" id="btn-begin-course" onclick="beginCourse()">읽었어요 · 튜토리얼 시작</button>
+    </div>
+
+    <!-- 게임 플레이 스크린 -->
+    <div id="screen-game" class="screen">
+        <div class="game-header">
+            <div><span id="course-label" class="course-tag"></span> 진행도: <span id="current-step">1</span> / <span id="total-step">12</span></div>
+            <div class="elapsed-time">경과 시간: <span id="game-timer" style="color:var(--primary); transition: 0.3s;">00:00</span></div>
+        </div>
+
+        <div class="progress-wrapper">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <div id="learning-tip" class="learning-tip" role="note"></div>
+
+        <div class="question-box">
+            <div class="question-label" id="question-label">다음 문장을 조립하세요.</div>
+            <div id="question-text"></div>
+        </div>
+        
+        <div class="question-tools">
+            <button class="btn-help" onclick="listenCurrentSentence()"><i class="fas fa-volume-up" aria-hidden="true"></i> 문장 듣기</button>
+            <button class="btn-help" id="btn-hint" onclick="toggleHint()">정답 힌트 보기</button>
+        </div>
+        <div id="hint-panel" class="hint-panel" hidden></div>
+        <div id="vocabulary-panel" class="vocabulary-panel"></div>
+        <p id="answer-guide" class="answer-guide"></p>
+        <div class="answer-zone" id="answer-zone" aria-label="선택한 단어"></div>
+        <div class="word-bank" id="word-bank"></div>
+
+        <div class="control-panel" id="control-panel">
+            <button class="btn-submit" id="btn-submit" onclick="handleCheck()">정답 확인</button>
+            <div class="feedback-box" id="feedback-box" role="status" aria-live="polite">
+                <div class="feedback-title" id="feedback-title">정답입니다!</div>
+                <div id="feedback-correct-answer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 결과창 스크린 -->
+    <div id="screen-result" class="screen">
+        <div class="dashboard-box" id="dashboard-box">
+            <div class="dash-title">학습 결과 <span id="res-badge" class="mode-badge"></span></div>
+            <div id="res-mode" style="font-size:1.4rem; font-weight:bold; color:#666; margin-top: 10px;"></div>
+            <div class="dash-rank" id="res-rank">A+</div>
+            <div class="dash-msg" id="res-msg">메시지</div>
+            
+            <div class="dash-stats">
+                <div class="stat-item">
+                    <span class="stat-label">학습 시간</span>
+                    <span class="stat-value" id="res-time">00:00</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">첫 시도 정답률</span>
+                    <span class="stat-value" id="res-acc">100%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">다시 살펴본 횟수</span>
+                    <span class="stat-value error-txt" id="res-wrong">0회</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="mistake-area" class="mistake-area" style="display:none;">
+            <h4 style="margin-bottom: 15px; font-size:1.4rem; color:var(--primary);"><i class="fas fa-book-open"></i> 오답 노트 (다시 복습해 보세요)</h4>
+            <div id="mistake-list"></div>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 10px; width: 100%;">
+            <button class="btn-submit ready" id="btn-return-lobby" onclick="goHome()" style="flex: 1; margin-bottom: 0;">로비로 돌아가기</button>
+            <button class="btn-submit ready" id="btn-retry-level" onclick="restartCurrentLevel()" style="flex: 1; margin-bottom: 0; background: var(--success);">다시하기 <i class="fas fa-redo"></i></button>
+        </div>
+        <button class="btn-start next-course" id="btn-next-course" onclick="openCourse('main')" hidden>본편으로 이어서 가기</button>
+        <button class="btn-share" onclick="copyResultImage()"><i class="fas fa-camera"></i> 리포트 캡처하기 (클립보드)</button>
+    </div>
+</div>
+
+<!-- 개발자용 히든 사운드 보드 모달 -->
+<div id="hiddenAudioModal" class="modal-overlay">
+    <div class="test-board-box">
+        <h3 style="color:var(--primary); margin-bottom: 10px;">🔊 전체 음성 검수 보드</h3>
+        <p style="color:#666; font-size:0.95rem; margin-bottom: 15px;">클릭 시 재생(0.85 배속)</p>
+        
+        <div style="margin-bottom: 15px;">
+            <label style="font-weight: bold; margin-right: 15px; cursor: pointer;">
+                <input type="radio" name="testGender" value="m" checked onchange="testGender = 'm'"> 👨 남성 성우 (_m)
+            </label>
+            <label style="font-weight: bold; cursor: pointer;">
+                <input type="radio" name="testGender" value="f" onchange="testGender = 'f'"> 👩 여성 성우 (_f)
+            </label>
+        </div>
+
+        <button onclick="closeTestBoard()" style="padding:6px 15px; background:var(--accent); color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; margin-bottom:15px;">검수창 닫기</button>
+
+        <div class="test-grid" id="test-board-grid"></div>
+    </div>
+</div>
+
+<script>
+    // 입문 과정: 정해진 순서로 배우며, 오답용 단어는 추가하지 않는다.
+    const wordHelp = {
+        "این": {
+            "reading": "인",
+            "meaning": "이것 / 이"
+        },
+        "آن": {
+            "reading": "언",
+            "meaning": "저것 / 저"
+        },
+        "سیب": {
+            "reading": "시브",
+            "meaning": "사과"
+        },
+        "آب": {
+            "reading": "어브",
+            "meaning": "물"
+        },
+        "خانه": {
+            "reading": "허네",
+            "meaning": "집"
+        },
+        "است": {
+            "reading": "아스트",
+            "meaning": "~이다"
+        },
+        "سرد": {
+            "reading": "사르드",
+            "meaning": "차갑다"
+        },
+        "سبز": {
+            "reading": "사브즈",
+            "meaning": "초록색"
+        },
+        "بزرگ": {
+            "reading": "보조르그",
+            "meaning": "크다"
+        },
+        "من": {
+            "reading": "만",
+            "meaning": "나"
+        },
+        "تو": {
+            "reading": "토",
+            "meaning": "너"
+        },
+        "او": {
+            "reading": "우",
+            "meaning": "그 / 그녀"
+        },
+        "خسته": {
+            "reading": "하스테",
+            "meaning": "피곤하다"
+        },
+        "مهربان": {
+            "reading": "메흐라번",
+            "meaning": "친절하다"
+        },
+        "هستم": {
+            "reading": "하스탐",
+            "meaning": "(나는) ~이다"
+        },
+        "هستی": {
+            "reading": "하스티",
+            "meaning": "(너는) ~이다"
+        },
+        "پول": {
+            "reading": "풀",
+            "meaning": "돈"
+        },
+        "دارم": {
+            "reading": "더람",
+            "meaning": "(나는) 가지고 있다"
+        }
+    };
+
+    const tutorialData = [
+        {
+            "ko": [
+                "이것은",
+                "사과입니다."
+            ],
+            "fa": [
+                "این",
+                "سیب",
+                "است"
+            ],
+            "k_full": "이것은 사과입니다.",
+            "f_full": "این سیب است",
+            "direction": "ko2fa",
+            "tip": "오른쪽부터 «이것 → 사과 → ~이다» 순서입니다. 테두리가 파란 단어를 차례로 눌러 보세요."
+        },
+        {
+            "ko": [
+                "이것은",
+                "물입니다."
+            ],
+            "fa": [
+                "این",
+                "آب",
+                "است"
+            ],
+            "k_full": "이것은 물입니다.",
+            "f_full": "این آب است",
+            "direction": "ko2fa",
+            "tip": "앞 문장에서 «사과»를 «물»로 바꾸면 됩니다. این(이것)과 است(~이다)는 그대로입니다."
+        },
+        {
+            "ko": [
+                "물은",
+                "차갑습니다."
+            ],
+            "fa": [
+                "آب",
+                "سرد",
+                "است"
+            ],
+            "k_full": "물은 차갑습니다.",
+            "f_full": "آب سرد است",
+            "direction": "ko2fa",
+            "tip": "«물 → 차갑다 → ~이다». 페르시아어도 이런 문장에서는 설명하는 말 뒤에 동사가 옵니다."
+        },
+        {
+            "ko": [
+                "나는",
+                "피곤합니다."
+            ],
+            "fa": [
+                "من",
+                "خسته",
+                "هستم"
+            ],
+            "k_full": "나는 피곤합니다.",
+            "f_full": "من خسته هستم",
+            "direction": "ko2fa",
+            "tip": "«나 → 피곤하다 → ~이다». 주어가 «나»일 때는 است 대신 هستم을 씁니다."
+        }
+    ];
+
+    const mainData = [
+        {
+            "ko": [
+                "이것은",
+                "사과입니다."
+            ],
+            "fa": [
+                "این",
+                "سیب",
+                "است"
+            ],
+            "k_full": "이것은 사과입니다.",
+            "f_full": "این سیب است",
+            "direction": "fa2ko",
+            "tip": "첫 문제는 뜻 맞추기입니다. 아래 단어 도움말을 보고 한국어 문장을 만들어 보세요."
+        },
+        {
+            "ko": [
+                "이것은",
+                "물입니다."
+            ],
+            "fa": [
+                "این",
+                "آب",
+                "است"
+            ],
+            "k_full": "이것은 물입니다.",
+            "f_full": "این آب است",
+            "direction": "ko2fa",
+            "tip": "«이것 → 물 → ~이다» 순서로 만들어 보세요. 첫 단어는 답칸의 오른쪽에 놓입니다."
+        },
+        {
+            "ko": [
+                "저것은",
+                "집입니다."
+            ],
+            "fa": [
+                "آن",
+                "خانه",
+                "است"
+            ],
+            "k_full": "저것은 집입니다.",
+            "f_full": "آن خانه است",
+            "direction": "ko2fa",
+            "tip": "این은 «이것», آن은 «저것»입니다. 나머지는 «무엇 → ~이다» 구조입니다."
+        },
+        {
+            "ko": [
+                "사과는",
+                "초록색입니다."
+            ],
+            "fa": [
+                "سیب",
+                "سبز",
+                "است"
+            ],
+            "k_full": "사과는 초록색입니다.",
+            "f_full": "سیب سبز است",
+            "direction": "fa2ko",
+            "tip": "오른쪽의 سیب(사과)부터 읽으세요. 뒤의 سبز는 «초록색»이라는 뜻입니다."
+        },
+        {
+            "ko": [
+                "집은",
+                "큽니다."
+            ],
+            "fa": [
+                "خانه",
+                "بزرگ",
+                "است"
+            ],
+            "k_full": "집은 큽니다.",
+            "f_full": "خانه بزرگ است",
+            "direction": "ko2fa",
+            "tip": "«집 → 크다 → ~이다» 순서입니다. 새로운 단어도 카드의 뜻을 보며 골라도 됩니다."
+        },
+        {
+            "ko": [
+                "물은",
+                "차갑습니다."
+            ],
+            "fa": [
+                "آب",
+                "سرد",
+                "است"
+            ],
+            "k_full": "물은 차갑습니다.",
+            "f_full": "آب سرد است",
+            "direction": "ko2fa",
+            "tip": "튜토리얼에서 본 문장입니다. «물 → 차갑다 → ~이다»를 다시 만들어 보세요."
+        },
+        {
+            "ko": [
+                "나는",
+                "피곤합니다."
+            ],
+            "fa": [
+                "من",
+                "خسته",
+                "هستم"
+            ],
+            "k_full": "나는 피곤합니다.",
+            "f_full": "من خسته هستم",
+            "direction": "fa2ko",
+            "tip": "من은 «나», خسته는 «피곤하다»입니다. هستم은 «나»에 맞는 ~이다 형태입니다."
+        },
+        {
+            "ko": [
+                "너는",
+                "피곤합니다."
+            ],
+            "fa": [
+                "تو",
+                "خسته",
+                "هستی"
+            ],
+            "k_full": "너는 피곤합니다.",
+            "f_full": "تو خسته هستی",
+            "direction": "ko2fa",
+            "tip": "주어가 «너»이면 마지막에 هستی를 씁니다. «너 → 피곤하다 → ~이다» 순서입니다."
+        },
+        {
+            "ko": [
+                "그는",
+                "친절합니다."
+            ],
+            "fa": [
+                "او",
+                "مهربان",
+                "است"
+            ],
+            "k_full": "그는 친절합니다.",
+            "f_full": "او مهربان است",
+            "direction": "fa2ko",
+            "tip": "او는 «그»와 «그녀»를 모두 뜻합니다. 이 문제에서는 «그는»으로 옮겨 보세요."
+        },
+        {
+            "ko": [
+                "나는",
+                "돈이",
+                "있습니다."
+            ],
+            "fa": [
+                "من",
+                "پول",
+                "دارم"
+            ],
+            "k_full": "나는 돈이 있습니다.",
+            "f_full": "من پول دارم",
+            "direction": "ko2fa",
+            "tip": "«나 → 돈 → 가지고 있다» 순서입니다. دارم은 «내가 가지고 있다»라는 뜻입니다."
+        },
+        {
+            "ko": [
+                "나는",
+                "사과가",
+                "있습니다."
+            ],
+            "fa": [
+                "من",
+                "سیب",
+                "دارم"
+            ],
+            "k_full": "나는 사과가 있습니다.",
+            "f_full": "من سیب دارم",
+            "direction": "ko2fa",
+            "tip": "앞 문장의 «돈»을 «사과»로 바꾸세요. 마지막 동사는 دارم입니다."
+        },
+        {
+            "ko": [
+                "이",
+                "사과는",
+                "초록색입니다."
+            ],
+            "fa": [
+                "این",
+                "سیب",
+                "سبز",
+                "است"
+            ],
+            "k_full": "이 사과는 초록색입니다.",
+            "f_full": "این سیب سبز است",
+            "direction": "ko2fa",
+            "tip": "마지막은 네 단어입니다. «이 → 사과 → 초록색 → ~이다» 순서로 만들면 됩니다."
+        }
+    ];
+
+
+    // 음성 매핑 테이블
+    const audioMap = {
+        // syntax_audio_1
+        "من": { f: "syntax_audio_1", name: "man_audio" },
+        "تو": { f: "syntax_audio_1", name: "to_audio" },
+        "او": { f: "syntax_audio_1", name: "u_audio" },
+        "ما": { f: "syntax_audio_1", name: "ma_audio" },
+        "شما": { f: "syntax_audio_1", name: "shoma_audio" },
+        "آنها": { f: "syntax_audio_1", name: "anha_audio" },
+        "این": { f: "syntax_audio_1", name: "in_audio" },
+        "آن": { f: "syntax_audio_1", name: "an_audio" },
+
+        // syntax_audio_2
+        "به": { f: "syntax_audio_2", name: "be_audio" },
+        "از": { f: "syntax_audio_2", name: "az_audio" },
+        "در": { f: "syntax_audio_2", name: "dar_audio" },
+        "را": { f: "syntax_audio_2", name: "ra_audio" },
+
+        // syntax_audio_3
+        "است": { f: "syntax_audio_3", name: "ast_audio" },
+        "هستم": { f: "syntax_audio_3", name: "hastam_audio" },
+        "هستی": { f: "syntax_audio_3", name: "hasti_audio" },
+        "هستیم": { f: "syntax_audio_3", name: "hastim_audio" },
+        "دارم": { f: "syntax_audio_3", name: "daram_audio" },
+        "ندارند": { f: "syntax_audio_3", name: "nadarand_audio" },
+        "داری؟": { f: "syntax_audio_3", name: "dari_q_audio" },
+        "هستی؟": { f: "syntax_audio_3", name: "hasti_q_audio" },
+
+        // syntax_audio_4
+        "فرودگاه": { f: "syntax_audio_4", name: "forudgah_audio" },
+        "آشپزخانه": { f: "syntax_audio_4", name: "ashpazxane_audio" },
+        "دریا": { f: "syntax_audio_4", name: "darya_audio" },
+        "جعبه": { f: "syntax_audio_4", name: "jabe_audio" },
+        "کوه": { f: "syntax_audio_4", name: "kuh_audio" },
+        "حمام": { f: "syntax_audio_4", name: "hammam_audio" },
+        "سریال": { f: "syntax_audio_4", name: "serial_audio" },
+        "اتاق خواب": { f: "syntax_audio_4", name: "otaqexab_audio" },
+        "باد": { f: "syntax_audio_4", name: "bad_audio" },
+        "لپ تاپ": { f: "syntax_audio_4", name: "laptap_audio" },
+        "بیمار": { f: "syntax_audio_4", name: "bimar_audio" },
+        "پسر عمو": { f: "syntax_audio_4", name: "pesaramu_audio" },
+        "روستا": { f: "syntax_audio_4", name: "rusta_audio" },
+        "آرایشگاه": { f: "syntax_audio_4", name: "arayeshgah_audio" },
+        "کلانتری": { f: "syntax_audio_4", name: "kalantari_audio" },
+        "اداره": { f: "syntax_audio_4", name: "edare_audio" },
+        "جنگل": { f: "syntax_audio_4", name: "jangal_audio" },
+        "سفارت": { f: "syntax_audio_4", name: "sefarat_audio" },
+        "پاساژ": { f: "syntax_audio_4", name: "pasazh_audio" },
+        "خانه": { f: "syntax_audio_4", name: "xane_audio" },
+        "کافه": { f: "syntax_audio_4", name: "kafe_audio" },
+        "بیمارستان": { f: "syntax_audio_4", name: "bimarestan_audio" },
+        "دانشگاه": { f: "syntax_audio_4", name: "daneshgah_audio" },
+        "زندان": { f: "syntax_audio_4", name: "zendan_audio" },
+        "استخر": { f: "syntax_audio_4", name: "estakhr_audio" },
+        "پل": { f: "syntax_audio_4", name: "pol_audio" },
+        "آرامگاه": { f: "syntax_audio_4", name: "aramgah_audio" },
+        "کارخانه": { f: "syntax_audio_4", name: "karxane_audio" },
+        "هندوانه": { f: "syntax_audio_4", name: "hendevane_audio" },
+        "نوشیدنی": { f: "syntax_audio_4", name: "nushidani_audio" },
+        "ظرف": { f: "syntax_audio_4", name: "zarf_audio" },
+        "پالتو": { f: "syntax_audio_4", name: "palto_audio" },
+        "موز": { f: "syntax_audio_4", name: "mouz_audio" },
+        "پنجره": { f: "syntax_audio_4", name: "panjere_audio" },
+        "هدیه": { f: "syntax_audio_4", name: "hediye_audio" },
+        "پرنده": { f: "syntax_audio_4", name: "parande_audio" },
+        "شیر": { f: "syntax_audio_4", name: "shir_audio" },
+        "پیاز": { f: "syntax_audio_4", name: "piaz_audio" },
+        "فرش": { f: "syntax_audio_4", name: "farsh_audio" },
+        "گوجه فرنگی": { f: "syntax_audio_4", name: "gojefarangi_audio" },
+        "خرس": { f: "syntax_audio_4", name: "xers_audio" },
+        "مجله": { f: "syntax_audio_4", name: "majalle_audio" },
+        "کولر": { f: "syntax_audio_4", name: "kuler_audio" },
+        "کامیون": { f: "syntax_audio_4", name: "kamiyon_audio" },
+        "دستشویی": { f: "syntax_audio_4", name: "dastshuyi_audio" },
+        "آب": { f: "syntax_audio_4", name: "ab_audio" },
+        "سیب": { f: "syntax_audio_4", name: "sib_audio" },
+        "سگ": { f: "syntax_audio_4", name: "sag_audio" },
+        "کیف پول": { f: "syntax_audio_4", name: "kifepul_audio" },
+        "پول": { f: "syntax_audio_4", name: "pul_audio" },
+
+        // syntax_audio_5 (에저페 결합형)
+        "کیف پولِ": { f: "syntax_audio_5", name: "kifepul_ez_audio" },
+        "همسرِ": { f: "syntax_audio_5", name: "hamsar_ez_audio" },
+        "کفشِ": { f: "syntax_audio_5", name: "kafsh_ez_audio" },
+        "شلوارِ": { f: "syntax_audio_5", name: "shalvar_ez_audio" },
+        "دختر خاله‌ ی": { f: "syntax_audio_5", name: "doxtarxale_ez_audio" },
+        "سگِ": { f: "syntax_audio_5", name: "sag_ez_audio" },
+        "حوله ‌ی": { f: "syntax_audio_5", name: "houle_ez_audio" },
+        "خاله‌ ی": { f: "syntax_audio_5", name: "xale_ez_audio" },
+        "اتاق پذیراییِ": { f: "syntax_audio_5", name: "otaqepazirayi_ez_audio" },
+        "سیبِ": { f: "syntax_audio_5", name: "sib_ez_audio" },
+        "چکمه ‌ی": { f: "syntax_audio_5", name: "chakme_ez_audio" },
+        "جورابِ": { f: "syntax_audio_5", name: "jurab_ez_audio" },
+
+        // syntax_audio_6
+        "شلوغ": { f: "syntax_audio_6", name: "sholuq_audio" },
+        "تاریک": { f: "syntax_audio_6", name: "tarik_audio" },
+        "نزدیک": { f: "syntax_audio_6", name: "nazdik_audio" },
+        "سنگین": { f: "syntax_audio_6", name: "sangin_audio" },
+        "دور": { f: "syntax_audio_6", name: "dur_audio" },
+        "خواب آلود": { f: "syntax_audio_6", name: "xabalud_audio" },
+        "کثیف": { f: "syntax_audio_6", name: "kasif_audio" },
+        "چاق": { f: "syntax_audio_6", name: "chaq_audio" },
+        "شیک": { f: "syntax_audio_6", name: "shik_audio" },
+        "بانمک": { f: "syntax_audio_6", name: "banamak_audio" },
+        "ساکت": { f: "syntax_audio_6", name: "saket_audio" },
+        "سرد": { f: "syntax_audio_6", name: "sard_audio" },
+        "قدیمی": { f: "syntax_audio_6", name: "qadimi_audio" },
+        "حساس": { f: "syntax_audio_6", name: "hassas_audio" },
+        "خسته": { f: "syntax_audio_6", name: "xaste_audio" },
+        "مهربان": { f: "syntax_audio_6", name: "mehraban_audio" },
+        "سفید": { f: "syntax_audio_6", name: "sefid_audio" },
+        "مجرد": { f: "syntax_audio_6", name: "mojarrad_audio" },
+        "سیاه": { f: "syntax_audio_6", name: "siyah_audio" },
+        "بزرگ": { f: "syntax_audio_6", name: "bozorg_audio" },
+        "سبز": { f: "syntax_audio_6", name: "sabz_audio" },
+        "صورتی": { f: "syntax_audio_6", name: "surati_audio" },
+
+        // syntax_audio_7
+        "می‌روم": { f: "syntax_audio_7", name: "miravam_audio" },
+        "برگشت": { f: "syntax_audio_7", name: "bargasht_audio" },
+        "رسیدیم": { f: "syntax_audio_7", name: "residim_audio" },
+        "می‌روند": { f: "syntax_audio_7", name: "miravand_audio" },
+        "آمدی؟": { f: "syntax_audio_7", name: "amadi_q_audio" },
+        "کار می‌کنم": { f: "syntax_audio_7", name: "karmikonam_audio" },
+        "برگشتید": { f: "syntax_audio_7", name: "bargashtid_audio" },
+        "آشپزی می‌کنم": { f: "syntax_audio_7", name: "ashpazimikonam_audio" },
+        "برگشتیم": { f: "syntax_audio_7", name: "bargashtim_audio" },
+        "رسیدند": { f: "syntax_audio_7", name: "residand_audio" },
+        "شنا می‌کنم": { f: "syntax_audio_7", name: "shenamikonam_audio" },
+        "کار می‌کنی؟": { f: "syntax_audio_7", name: "karmikoni_q_audio" },
+        "برگشتند": { f: "syntax_audio_7", name: "bargashtand_audio" },
+        "می‌خورم": { f: "syntax_audio_7", name: "mixoram_audio" },
+        "می‌نوشد": { f: "syntax_audio_7", name: "minushad_audio" },
+        "می‌شوییم": { f: "syntax_audio_7", name: "mishuyim_audio" },
+        "می‌پوشی": { f: "syntax_audio_7", name: "mipushi_audio" },
+        "خریدند": { f: "syntax_audio_7", name: "xaridand_audio" },
+        "تماشا می‌کنم": { f: "syntax_audio_7", name: "tamashamikonam_audio" },
+        "باز کرد": { f: "syntax_audio_7", name: "bazkard_audio" },
+        "می‌فرستی": { f: "syntax_audio_7", name: "miferesti_audio" },
+        "دیدیم": { f: "syntax_audio_7", name: "didim_audio" },
+        "می‌خواهم": { f: "syntax_audio_7", name: "mixaham_audio" },
+        "خرد می‌کند": { f: "syntax_audio_7", name: "xordmikonad_audio" },
+        "خریدیم": { f: "syntax_audio_7", name: "xaridim_audio" },
+        "می‌رود": { f: "syntax_audio_7", name: "miravad_audio" },
+        "می‌شویی": { f: "syntax_audio_7", name: "mishuyi_audio" },
+        "دیدند": { f: "syntax_audio_7", name: "didand_audio" },
+        "گم کرد": { f: "syntax_audio_7", name: "gomkard_audio" },
+        "می‌خوانیم": { f: "syntax_audio_7", name: "mixanim_audio" },
+        "روشن می‌کنی": { f: "syntax_audio_7", name: "roshanmikoni_audio" },
+        "می‌نوشم": { f: "syntax_audio_7", name: "minusham_audio" }
+    };
+
+    function prepareLevelData(rawArray) {
+        return rawArray.map(item => ({
+            ko_sentence: item.k_full,
+            fa_sentence: item.f_full,
+            fa_correct: [...item.fa],
+            ko_correct: [...item.ko],
+            fa_pool: [...item.fa],
+            ko_pool: [...item.ko],
+            direction: item.direction,
+            tip: item.tip
+        }));
+    }
+
+    let gameQueue = [];
+    let currentQuestionIdx = 0;
+    let totalQuestions = 0;
+    let selectedWords = [];
+    let currentPool = [];
+    let isChecked = false;
+    let currentMode = '';
+    let timerInterval = null;
+    let startTime = 0;
+    let mistakes = [];
+    let perfectAnswers = 0;
+    let totalWrongCount = 0;
+    let currentQuestionMistake = false;
+    let currentCourse = 'tutorial';
+    let pendingCourse = 'tutorial';
+    let isShowingCorrection = false;
+    let hintOpen = false;
+
+    // 기존 녹음 매핑과 남성/여성 음성을 그대로 사용한다.
+    let isMuted = true;
+    let currentVoiceGender = 'm';
+    let currentAudioObj = null;
+    let titleClickCount = 0;
+    let titleClickTimer = null;
+    let testGender = 'm';
+
+    function normalizeText(txt) {
+        if (!txt) return "";
+        return txt.replace(/[\u200c\u200d]/g, ' ').replace(/\s+/g, ' ').trim();
+    }
+
+    function lookupAudioEntry(txt) {
+        let clean = normalizeText(txt);
+        if (audioMap[clean]) return audioMap[clean];
+        if (audioMap[txt]) return audioMap[txt];
+        for (let k in audioMap) {
+            if (normalizeText(k) === clean) return audioMap[k];
+        }
+        return null;
+    }
+
+    function toggleMute() {
+        isMuted = !isMuted;
+        const btn = document.getElementById('muteBtn');
+        btn.querySelector('i').className = isMuted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+        btn.style.color = isMuted ? 'var(--text-muted)' : 'var(--primary)';
+        btn.title = isMuted ? '소리 켜기' : '소리 끄기';
+        btn.setAttribute('aria-label', btn.title);
+        if (isMuted) stopAllAudio();
+    }
+
+    function listenCurrentSentence() {
+        if (isMuted) toggleMute();
+        playSentenceAudio(gameQueue[currentQuestionIdx].fa_correct);
+    }
+
+    function playWordAudio(wordText, overrideGender = null) {
+        if (isMuted) return;
+        stopAllAudio();
+
+        let entry = lookupAudioEntry(wordText);
+        if (!entry) return;
+
+        let gender = overrideGender || currentVoiceGender;
+        let fileName = entry.name + "_" + gender;
+        // 미수임 예외 처리 파일명 동기화
+        if (gender === 'f' && entry.name === 'mishuyim_audio') {
+            fileName = 'mishuiyim_audio_f';
+        }
+
+        let src = `${entry.f}/${fileName}.m4a`;
+        currentAudioObj = new Audio(src);
+        currentAudioObj.playbackRate = 0.85;
+        currentAudioObj.play().catch(e => console.log("Audio play error:", e));
+    }
+
+    // 기존 녹음 파일을 이용한 문장 순차 재생
+    let currentSentenceAudios = []; // 통문장 재생 시 겹쳐서 재생되는 오디오 객체들을 추적
+
+    // === [추가] 모든 오디오 즉시 차단 함수 ===
+    function stopAllAudio() {
+        if (currentAudioObj) {
+            currentAudioObj.pause();
+            currentAudioObj.currentTime = 0;
+            currentAudioObj = null;
+        }
+        if (typeof currentSentenceAudios !== 'undefined' && currentSentenceAudios.length > 0) {
+            currentSentenceAudios.forEach(a => {
+                a.pause();
+                a.ontimeupdate = null;
+                a.onended = null;
+            });
+            currentSentenceAudios = [];
+        }
+    }
+
+    function playSentenceAudio(wordArray, overrideGender = null) {
+        if (isMuted || !wordArray || wordArray.length === 0) return;
+        
+        // 기존 단일 재생 중이던 오디오 정지
+        if (currentAudioObj) {
+            currentAudioObj.pause();
+            currentAudioObj.currentTime = 0;
+            currentAudioObj = null;
+        }
+        // 이전에 통문장 재생으로 겹쳐서 돌고 있던 오디오 배열 싹 다 강제 정지
+        currentSentenceAudios.forEach(a => {
+            a.pause();
+            a.ontimeupdate = null;
+            a.onended = null;
+        });
+        currentSentenceAudios = [];
+
+        let gender = overrideGender || currentVoiceGender;
+        let idx = 0;
+        const overlapSec = 1.0; // 앞 오디오가 끝나기 1초 전에 다음 단어 시작
+
+        function playNext() {
+            if (idx >= wordArray.length || isMuted) return;
+            
+            let word = wordArray[idx];
+            let entry = lookupAudioEntry(word);
+            idx++;
+
+            if (!entry) {
+                playNext();
+                return;
+            }
+
+            let fileName = entry.name + "_" + gender;
+            if (gender === 'f' && entry.name === 'mishuyim_audio') {
+                fileName = 'mishuiyim_audio_f';
+            }
+
+            let src = `${entry.f}/${fileName}.m4a`;
+            let audioNode = new Audio(src);
+            audioNode.playbackRate = 1.0; // 문장 재생은 1배속 유지
+            
+            currentSentenceAudios.push(audioNode);
+            currentAudioObj = audioNode; // 로비 복귀 등 글로벌 컨트롤 대응용
+
+            let nextCalled = false;
+
+            // 마지막 프레임에서 다음 단어로 연결한다.
+            audioNode.ontimeupdate = () => {
+                if (!nextCalled && audioNode.duration > 0) {
+                    if (audioNode.duration - audioNode.currentTime <= overlapSec) {
+                        nextCalled = true;
+                        playNext();
+                    }
+                }
+            };
+
+            // onended는 timeupdate 이벤트가 건너뛰어지는 만약의 사태를 대비한 안전장치 및 메모리 정리용
+            audioNode.onended = () => {
+                if (!nextCalled) {
+                    nextCalled = true;
+                    playNext();
+                }
+                // 재생이 완전히 끝난 오디오는 배열에서 제거
+                currentSentenceAudios = currentSentenceAudios.filter(a => a !== audioNode);
+            };
+
+            audioNode.play().catch(e => {
+                console.log("Sentence audio overlap playback error:", e);
+                if (!nextCalled) {
+                    nextCalled = true;
+                    playNext();
+                }
+            });
+        }
+        
+        playNext();
+    }
+
+    function restartCurrentLevel() {
+        startCourse(currentCourse);
+    }
+
+    function goHome() {
+        stopAllAudio();
+        clearInterval(timerInterval);
+        document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+        document.getElementById('screen-home').classList.add('active');
+        document.getElementById('top-nav').style.display = 'none';
+        document.getElementById('main-header').style.display = 'block';
+    }
+
+    function showScreen(id) {
+        document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.getElementById('top-nav').style.display = 'flex';
+        document.getElementById('main-header').style.display = 'none';
+    }
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    function openCourse(course) {
+        pendingCourse = course;
+        stopAllAudio();
+        clearInterval(timerInterval);
+        const isTutorial = course === 'tutorial';
+        document.getElementById('intro-course-tag').textContent = isTutorial ? '튜토리얼 · 4문항' : '본편 · 12문항';
+        document.getElementById('intro-title').textContent = isTutorial ? '시작하기 전에, 세 가지만' : '본편도 천천히 시작해요';
+        document.getElementById('btn-begin-course').textContent = isTutorial ? '읽었어요 · 튜토리얼 시작' : '읽었어요 · 본편 시작';
+        showScreen('screen-intro');
+    }
+
+    function beginCourse() {
+        startCourse(pendingCourse);
+    }
+
+    function formatTime(sec) {
+        return `${String(Math.floor(sec / 60)).padStart(2, '0')}:${String(sec % 60).padStart(2, '0')}`;
+    }
+
+    function startCourse(course) {
+        stopAllAudio();
+        clearInterval(timerInterval);
+        currentCourse = course;
+        gameQueue = prepareLevelData(course === 'tutorial' ? tutorialData : mainData);
+        totalQuestions = gameQueue.length;
+        currentQuestionIdx = 0;
+        mistakes = [];
+        perfectAnswers = 0;
+        totalWrongCount = 0;
+        document.getElementById('total-step').textContent = totalQuestions;
+        document.getElementById('course-label').textContent = course === 'tutorial' ? '튜토리얼' : '본편';
+        showScreen('screen-game');
+        startTime = Date.now();
+        document.getElementById('game-timer').textContent = '00:00';
+        timerInterval = setInterval(() => {
+            document.getElementById('game-timer').textContent = formatTime(Math.floor((Date.now() - startTime) / 1000));
+        }, 1000);
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        stopAllAudio();
+        const data = gameQueue[currentQuestionIdx];
+        selectedWords = [];
+        currentQuestionMistake = false;
+        currentVoiceGender = Math.random() < 0.5 ? 'm' : 'f';
+        currentMode = data.direction;
+        hintOpen = false;
+        isShowingCorrection = false;
+        document.getElementById('current-step').textContent = currentQuestionIdx + 1;
+        document.getElementById('learning-tip').textContent = data.tip;
+        document.getElementById('hint-panel').hidden = true;
+        document.getElementById('btn-hint').textContent = '정답 힌트 보기';
+        const qText = document.getElementById('question-text');
+        const isPersianAnswer = currentMode === 'ko2fa';
+        document.getElementById('question-label').textContent = isPersianAnswer
+            ? '이 뜻이 되도록 페르시아어 카드를 눌러 보세요.'
+            : '페르시아어 문장을 보고 한국어 카드를 눌러 보세요.';
+        qText.className = isPersianAnswer ? 'ko-text' : 'fa-text';
+        qText.textContent = isPersianAnswer ? data.ko_sentence : data.fa_sentence;
+        qText.lang = isPersianAnswer ? 'ko' : 'fa';
+        document.getElementById('answer-zone').className = `answer-zone ${isPersianAnswer ? 'fa-zone' : 'ko-zone'}`;
+        document.getElementById('word-bank').className = `word-bank ${isPersianAnswer ? 'fa-zone' : 'ko-zone'}`;
+        document.getElementById('answer-guide').textContent = isPersianAnswer
+            ? '페르시아어 답칸 · 첫 단어는 오른쪽 → 다음 단어는 왼쪽'
+            : '한국어 답칸 · 왼쪽부터 문장을 만들어요';
+        currentPool = shuffleArray([...(isPersianAnswer ? data.fa_pool : data.ko_pool)]);
+        // 매번 정답 배열 그대로 배치되는 것을 피한다.
+        const correct = isPersianAnswer ? data.fa_correct : data.ko_correct;
+        if (currentPool.join(' ') === correct.join(' ')) currentPool.reverse();
+        renderVocabulary(data);
+        resetBottomPanel();
+        renderUI();
+        updateProgress();
+    }
+
+    function makeTile(word, isPersian) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'word-tile';
+        const text = document.createElement('span');
+        text.className = 'tile-word';
+        text.textContent = word;
+        text.lang = isPersian ? 'fa' : 'ko';
+        text.dir = isPersian ? 'rtl' : 'ltr';
+        btn.appendChild(text);
+        if (isPersian && wordHelp[word]) {
+            const reading = document.createElement('span');
+            reading.className = 'tile-reading';
+            reading.textContent = wordHelp[word].reading;
+            const meaning = document.createElement('span');
+            meaning.className = 'tile-meaning';
+            meaning.textContent = wordHelp[word].meaning;
+            btn.append(reading, meaning);
+            btn.setAttribute('aria-label', `${word}, ${reading.textContent}, ${meaning.textContent}`);
+        }
+        return btn;
+    }
+
+    function renderVocabulary(data) {
+        const panel = document.getElementById('vocabulary-panel');
+        panel.replaceChildren();
+        panel.hidden = currentMode !== 'fa2ko';
+        if (panel.hidden) return;
+        const label = document.createElement('p');
+        label.className = 'vocabulary-label';
+        label.textContent = '단어 도움말 · 순서는 섞여 있어요';
+        const row = document.createElement('div');
+        row.className = 'vocabulary-words fa-zone';
+        shuffleArray([...new Set(data.fa_correct)]).forEach(word => {
+            const tile = makeTile(word, true);
+            tile.title = '단어 듣기 (소리를 켠 상태에서 재생)';
+            tile.onclick = () => playWordAudio(word);
+            row.appendChild(tile);
+        });
+        panel.append(label, row);
+    }
+
+    function toggleHint() {
+        hintOpen = !hintOpen;
+        const panel = document.getElementById('hint-panel');
+        panel.hidden = !hintOpen;
+        document.getElementById('btn-hint').textContent = hintOpen ? '정답 힌트 접기' : '정답 힌트 보기';
+        if (hintOpen) {
+            const data = gameQueue[currentQuestionIdx];
+            panel.replaceChildren();
+            const label = document.createElement('p');
+            label.textContent = '이 순서로 만들어 보세요. 힌트를 사용해도 페널티는 없어요.';
+            const sentence = document.createElement('p');
+            sentence.className = currentMode === 'ko2fa' ? 'hint-sentence fa-text' : 'hint-sentence ko-text';
+            sentence.textContent = currentMode === 'ko2fa' ? data.fa_sentence : data.ko_sentence;
+            const reading = document.createElement('p');
+            reading.className = 'hint-reading';
+            reading.textContent = '읽는 순서: ' + data.fa_correct.map(word => wordHelp[word].reading).join(' → ');
+            panel.append(label, sentence, reading);
+        }
+    }
+
+    function selectWord(word, index) {
+        if(isChecked) return; 
+        
+        // 페르시아어 타일 선택 시 음성 즉시 재생
+        if (currentMode === 'ko2fa') {
+            playWordAudio(word);
+        }
+
+        selectedWords.push({ word: word, originalIndex: index });
+        renderUI();
+        checkButtonState();
+    }
+
+    function deselectWord(word, originalIndex, arrayIndex) {
+        if(isChecked) return;
+
+        // 페르시아어 타일 취소 시 음성 재생 로직 삭제 완료 (인지적 마찰 방지)
+
+        selectedWords.splice(arrayIndex, 1);
+        renderUI();
+        checkButtonState();
+    }
+
+    function renderUI() {
+        const bank = document.getElementById('word-bank');
+        const answer = document.getElementById('answer-zone');
+        const isPersian = currentMode === 'ko2fa';
+        const data = gameQueue[currentQuestionIdx];
+        const correct = isPersian ? data.fa_correct : data.ko_correct;
+        bank.replaceChildren();
+        answer.replaceChildren();
+        answer.classList.toggle('active', selectedWords.length > 0);
+        if (!selectedWords.length) {
+            const placeholder = document.createElement('span');
+            placeholder.className = 'answer-placeholder';
+            placeholder.textContent = isPersian ? '아래 카드를 누르면 오른쪽부터 놓여요' : '아래 카드를 눌러 문장을 만들어 보세요';
+            answer.appendChild(placeholder);
+        }
+        selectedWords.forEach((item, idx) => {
+            const btn = makeTile(item.word, isPersian);
+            btn.disabled = isChecked;
+            btn.title = '누르면 선택 취소';
+            btn.onclick = () => deselectWord(item.word, item.originalIndex, idx);
+            answer.appendChild(btn);
+        });
+        const isCorrectPrefix = selectedWords.every((item, idx) => item.word === correct[idx]);
+        currentPool.forEach((word, idx) => {
+            const btn = makeTile(word, isPersian);
+            const used = selectedWords.some(item => item.originalIndex === idx);
+            btn.disabled = used || isChecked;
+            if (used) btn.classList.add('disabled');
+            if (!used && !isChecked && isCorrectPrefix && currentCourse === 'tutorial' && word === correct[selectedWords.length]) {
+                btn.classList.add('tutorial-target');
+                btn.title = '다음에 고를 단어';
+            }
+            btn.onclick = () => selectWord(word, idx);
+            bank.appendChild(btn);
+        });
+    }
+
+    function checkButtonState() {
+        const btn = document.getElementById('btn-submit');
+        const data = gameQueue[currentQuestionIdx];
+        const count = (currentMode === 'ko2fa' ? data.fa_correct : data.ko_correct).length;
+        const ready = selectedWords.length === count;
+        btn.classList.toggle('ready', ready);
+        btn.disabled = !ready;
+    }
+
+    function resetBottomPanel() {
+        const btn = document.getElementById('btn-submit');
+        btn.className = 'btn-submit';
+        btn.textContent = '정답 확인';
+        btn.disabled = true;
+        const box = document.getElementById('feedback-box');
+        box.style.display = 'none';
+        box.className = 'feedback-box';
+        isChecked = false;
+        isShowingCorrection = false;
+    }
+
+    function handleCheck() {
+        const btn = document.getElementById('btn-submit');
+        if (btn.disabled) return;
+        if (isShowingCorrection) {
+            // 오답 확인 후 같은 문항을 다시 풀며 익힌다.
+            selectedWords = [];
+            resetBottomPanel();
+            renderUI();
+            return;
+        }
+        if (isChecked) {
+            currentQuestionIdx++;
+            if (currentQuestionIdx >= totalQuestions) endGame();
+            else loadQuestion();
+            return;
+        }
+        const data = gameQueue[currentQuestionIdx];
+        const correct = currentMode === 'ko2fa' ? data.fa_correct : data.ko_correct;
+        if (selectedWords.length !== correct.length) return;
+        const isCorrect = selectedWords.every((item, idx) => item.word === correct[idx]);
+        const box = document.getElementById('feedback-box');
+        const title = document.getElementById('feedback-title');
+        const detail = document.getElementById('feedback-correct-answer');
+        detail.replaceChildren();
+        const sentence = document.createElement('p');
+        sentence.className = 'feedback-sentence';
+        sentence.lang = 'fa';
+        sentence.dir = 'rtl';
+        sentence.textContent = data.fa_sentence;
+        const reading = document.createElement('p');
+        reading.className = 'feedback-reading';
+        reading.textContent = data.fa_correct.map(word => wordHelp[word].reading).join(' · ');
+        const meaning = document.createElement('p');
+        meaning.className = 'feedback-meaning';
+        meaning.textContent = data.ko_sentence;
+        detail.append(sentence, reading, meaning);
+        isChecked = true;
+        box.className = `feedback-box ${isCorrect ? 'success' : 'error'}`;
+        box.style.display = 'block';
+        if (isCorrect) {
+            if (!currentQuestionMistake) perfectAnswers++;
+            title.textContent = '맞았어요. 문장의 뜻도 함께 확인해 보세요.';
+            btn.className = 'btn-submit next-success';
+            btn.textContent = currentQuestionIdx === totalQuestions - 1 ? '학습 결과 보기' : '다음 문장으로';
+        } else {
+            totalWrongCount++;
+            currentQuestionMistake = true;
+            isShowingCorrection = true;
+            if (!mistakes.some(item => item.fa === data.fa_sentence)) {
+                mistakes.push({ ko: data.ko_sentence, fa: data.fa_sentence, reading: reading.textContent });
+            }
+            title.textContent = '순서를 다시 살펴볼까요? 아래 문장을 보고 한 번 더 만들어 보세요.';
+            btn.className = 'btn-submit next-error';
+            btn.textContent = '같은 문장 다시 만들기';
+        }
+        renderUI();
+        updateProgress();
+    }
+
+    function updateProgress() {
+        const completed = currentQuestionIdx + (isChecked && !isShowingCorrection ? 1 : 0);
+        document.getElementById('progress-bar').style.width = `${completed / totalQuestions * 100}%`;
+    }
+
+    function endGame() {
+        stopAllAudio();
+        clearInterval(timerInterval);
+        const totalSec = Math.floor((Date.now() - startTime) / 1000);
+        const accuracy = Math.round(perfectAnswers / totalQuestions * 100);
+        showScreen('screen-result');
+        document.getElementById('res-badge').className = 'mode-badge badge-normal';
+        document.getElementById('res-badge').textContent = `${totalQuestions}문항`;
+        document.getElementById('res-mode').textContent = currentCourse === 'tutorial' ? '튜토리얼 완료' : '본편 완료';
+        document.getElementById('res-rank').textContent = `${totalQuestions}/${totalQuestions}`;
+        document.getElementById('res-msg').textContent = currentCourse === 'tutorial'
+            ? '이제 발음·뜻을 보며 본편의 짧은 문장을 만들어 보세요.'
+            : '모든 문장을 직접 완성했습니다. 헷갈렸던 문장은 아래에서 다시 확인하세요.';
+        document.getElementById('res-acc').textContent = `${accuracy}%`;
+        document.getElementById('res-wrong').textContent = `${totalWrongCount}회`;
+        document.getElementById('res-time').textContent = `${Math.floor(totalSec / 60)}분 ${totalSec % 60}초`;
+        document.getElementById('btn-next-course').hidden = currentCourse !== 'tutorial';
+        const area = document.getElementById('mistake-area');
+        area.style.display = mistakes.length ? 'block' : 'none';
+        const list = document.getElementById('mistake-list');
+        list.replaceChildren();
+        mistakes.forEach(item => {
+            const row = document.createElement('div');
+            row.className = 'mistake-item';
+            const fa = document.createElement('p');
+            fa.className = 'feedback-sentence';
+            fa.dir = 'rtl';
+            fa.lang = 'fa';
+            fa.textContent = item.fa;
+            const reading = document.createElement('p');
+            reading.textContent = item.reading;
+            const ko = document.createElement('p');
+            ko.textContent = item.ko;
+            row.append(fa, reading, ko);
+            list.appendChild(row);
+        });
+    }
+
+    async function copyResultImage() {
+        const btn = document.querySelector('.btn-share');
+        btn.disabled = true;
+        btn.textContent = '결과 이미지 만드는 중…';
+        try {
+            if (typeof html2canvas === 'undefined') throw new Error('캡처 라이브러리를 불러오지 못했습니다.');
+            const canvas = await html2canvas(document.getElementById('dashboard-box'), { scale: 2, backgroundColor: '#ffffff' });
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+            if (!blob) throw new Error('이미지를 만들지 못했습니다.');
+            try {
+                await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+                btn.textContent = '복사되었습니다! (Ctrl+V)';
+            } catch (error) {
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'persian-learning-result.png';
+                link.click();
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+                btn.textContent = '결과 이미지를 다운로드했습니다.';
+            }
+        } catch (error) {
+            btn.textContent = '캡처를 사용할 수 없습니다. 브라우저 화면 캡처를 이용해 주세요.';
+        }
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-camera" aria-hidden="true"></i> 리포트 캡처하기 (클립보드)';
+            btn.disabled = false;
+        }, 3000);
+    }
+
+    function handleTitleClick() {
+        titleClickCount++;
+        clearTimeout(titleClickTimer);
+        titleClickTimer = setTimeout(() => titleClickCount = 0, 2000);
+
+        if (titleClickCount >= 5) {
+            titleClickCount = 0;
+            openTestBoard();
+        }
+    }
+
+    function openTestBoard() {
+        const grid = document.getElementById('test-board-grid');
+        grid.innerHTML = "";
+        let keys = Object.keys(audioMap);
+
+        keys.forEach(key => {
+            let btn = document.createElement('button');
+            btn.className = 'test-tile';
+            btn.innerText = key;
+            btn.onclick = () => {
+                // 검수 모달에서는 음소거 해제 상태로 테스트
+                let tempMute = isMuted;
+                isMuted = false;
+                playWordAudio(key, testGender);
+                isMuted = tempMute;
+            };
+            grid.appendChild(btn);
+        });
+
+        document.getElementById('hiddenAudioModal').style.display = 'flex';
+    }
+
+    function closeTestBoard() {
+        document.getElementById('hiddenAudioModal').style.display = 'none';
+        stopAllAudio();
+    }
+
+    // ESC 키 누르면 검수 모달 닫기
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeTestBoard();
+    });
+
+</script>
+</body>
+</html>
